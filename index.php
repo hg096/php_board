@@ -1,4 +1,5 @@
 <?php include  $_SERVER['DOCUMENT_ROOT'] . "/board/db.php"; ?>
+<!-- 주소: 디렉토리 처음에서 들어옴 C:\APM\Apache24\htdocs에서 시작-->
 <!doctype html>
 
 <head>
@@ -11,6 +12,7 @@
     <div id="board_area">
         <h1>자유게시판</h1>
         <h4>자유롭게 글을 쓸 수 있는 게시판입니다.</h4>
+
         <table class="list-table">
             <thead>
                 <tr>
@@ -21,6 +23,7 @@
                     <th width="100">조회수</th>
                 </tr>
             </thead>
+
             <?php
             // board테이블에서 idx를 기준으로 내림차순해서 5개까지 표시
             $sql = mq("select * from board order by idx desc limit 0,5");
@@ -32,6 +35,7 @@
                     $title = str_replace($board["title"], mb_substr($board["title"], 0, 30, "utf-8") . "...", $board["title"]);
                 }
             ?>
+
             <tbody>
                 <tr>
                     <td width="70"><?php echo $board['idx']; ?></td>
@@ -42,8 +46,10 @@
                     <td width="100"><?php echo $board['hit']; ?></td>
                 </tr>
             </tbody>
+
             <?php } ?>
         </table>
+
         <div id="write_btn">
             <a href="/board/writer.php"><button>글쓰기</button></a>
         </div>

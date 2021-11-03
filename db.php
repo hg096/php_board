@@ -16,8 +16,8 @@ function mq($sql)
 }
 
 
-if ($db) {
-    echo "MySQL 접속 성공";
-} else {
-    echo "MySQL 접속 실패";
-}
+// if ($db) {
+//     echo "MySQL 접속 성공";
+// } else {
+//     echo "MySQL 접속 실패";
+// }
