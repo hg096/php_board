@@ -1,8 +1,8 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . "/board/db.php";
 
-$bno = $_GET['idx'];
-$sql = mq("delete from board where idx='$bno';");
+$bno = $_GET['b_idx'];
+$sql = mq("delete from board where b_idx='$bno';");
 ?>
 
 <script type="text/javascript">
