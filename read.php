@@ -22,6 +22,8 @@ include $_SERVER['DOCUMENT_ROOT'] . "/board/db.php";
     $fet = mq("update board set b_hit = '" . $hit . "' where b_idx = '" . $bno . "'");
     $sql = mq("select * from board where b_idx='" . $bno . "'"); /* 받아온 idx값을 선택 */
     $board = $sql->fetch_array();
+
+
     ?>
 
     <!-- 글 불러오기 -->
@@ -33,11 +35,14 @@ include $_SERVER['DOCUMENT_ROOT'] . "/board/db.php";
             조회:
             <?php echo $board['b_hit']; ?>
             <div id="bo_line"></div>
-            <div>
-                파일 : <a href="../../upload/
-                <?php echo $board['b_file']; ?>" download>
-                    <?php echo $board['b_file']; ?></a>
-            </div>
+            <!-- 파일 올린 게시물만  -->
+            <?php if ($board['b_file'] != (null or '')) { ?>
+                <div>
+                    파일 : <a href="/board/download.php?b_idx=<?php echo $bno; ?>">다운로드</a>
+                </div>
+            <?php
+            }
+            ?>
         </div>
         <div id='bo_content'>
             <?php echo ("$board[b_content]"); ?>
@@ -60,35 +65,33 @@ include $_SERVER['DOCUMENT_ROOT'] . "/board/db.php";
         $sql3 = mq("select * from reply where r_con_num='" . $bno . "' order by r_idx desc");
         while ($reply = $sql3->fetch_array()) {
         ?>
-        <div class="dap_lo">
-            <div><b><?php echo $reply['r_name']; ?></b></div>
-            <div class="dap_to comt_edit"><?php echo nl2br("$reply[r_content]"); ?></div>
-            <div class="rep_me dap_to"><?php echo $reply['r_date']; ?></div>
-            <div class="rep_me rep_menu">
-                <a class="dat_edit_bt" href="#">수정</a>
-                <a class="dat_delete_bt" href="#">삭제</a>
-            </div>
+            <div class="dap_lo">
+                <div><b><?php echo $reply['r_name']; ?></b></div>
+                <div class="dap_to comt_edit"><?php echo nl2br("$reply[r_content]"); ?></div>
+                <div class="rep_me dap_to"><?php echo $reply['r_date']; ?></div>
+                <div class="rep_me rep_menu">
+                    <a class="dat_edit_bt" href="#">수정</a>
+                    <a class="dat_delete_bt" href="#">삭제</a>
+                </div>
 
-            <!-- 댓글 수정 폼 dialog -->
-            <div class="dat_edit">
-                <form method="post" action="rep_modify_ok.php">
-                    <input type="hidden" name="rno" value="<?php echo $reply['r_idx']; ?>" /><input type="hidden"
-                        name="b_no" value="<?php echo $bno; ?>">
-                    <input type="password" name="r_pw" class="dap_sm" placeholder="비밀번호" />
-                    <textarea name="r_content" class="dap_edit_t"><?php echo $reply['r_content']; ?></textarea>
-                    <input type="submit" value="수정하기" class="re_mo_bt">
-                </form>
-            </div>
+                <!-- 댓글 수정 폼 dialog -->
+                <div class="dat_edit">
+                    <form method="post" action="rep_modify_ok.php">
+                        <input type="hidden" name="rno" value="<?php echo $reply['r_idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $bno; ?>">
+                        <input type="password" name="r_pw" class="dap_sm" placeholder="비밀번호" />
+                        <textarea name="r_content" class="dap_edit_t"><?php echo $reply['r_content']; ?></textarea>
+                        <input type="submit" value="수정하기" class="re_mo_bt">
+                    </form>
+                </div>
 
-            <!-- 댓글 삭제 비밀번호 확인 -->
-            <div class='dat_delete'>
-                <form action="reply_delete.php" method="post">
-                    <input type="hidden" name="rno" value="<?php echo $reply['r_idx']; ?>" /><input type="hidden"
-                        name="b_no" value="<?php echo $bno; ?>">
-                    <p>비밀번호<input type="password" name="r_pw" /> <input type="submit" value="확인"></p>
-                </form>
+                <!-- 댓글 삭제 비밀번호 확인 -->
+                <div class='dat_delete'>
+                    <form action="reply_delete.php" method="post">
+                        <input type="hidden" name="rno" value="<?php echo $reply['r_idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $bno; ?>">
+                        <p>비밀번호<input type="password" name="r_pw" /> <input type="submit" value="확인"></p>
+                    </form>
+                </div>
             </div>
-        </div>
         <?php } ?>
 
         <!--- 댓글 입력 폼 -->

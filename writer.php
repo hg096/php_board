@@ -14,14 +14,12 @@
             <form action="write_ok.php" method="post" enctype="multipart/form-data">
 
                 <div id="in_title">
-                    <textarea name="b_title" id="utitle" rows="1" cols="55" placeholder="제목" maxlength="100"
-                        required></textarea>
+                    <textarea name="b_title" id="utitle" rows="1" cols="55" placeholder="제목" maxlength="100" required></textarea>
                 </div>
 
                 <div class="wi_line"></div>
                 <div id="in_name">
-                    <textarea name="b_name" id="uname" rows="1" cols="55" placeholder="글쓴이" maxlength="100"
-                        required></textarea>
+                    <textarea name="b_name" id="uname" rows="1" cols="55" placeholder="글쓴이" maxlength="100" required></textarea>
                 </div>
 
                 <div class="wi_line"></div>

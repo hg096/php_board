@@ -13,35 +13,32 @@ if (isset($_POST['b_lockpost'])) {
     $lo_post = '0';
 }
 
-$tmpfile =  $_FILES['b_file']['b_tmp_name'];
-$o_name = $_FILES['b_file']['b_name'];
-$filename = iconv("UTF-8", "EUC-KR", $_FILES['b_file']['b_name']);
-$folder = "../../upload/" . $filename;
+$tmpfile =  $_FILES['b_file']['tmp_name'];
+$o_name = $_FILES['b_file']['name'];
+$filename = iconv("UTF-8", "EUC-KR", $_FILES['b_file']['name']);
+
+// 경로 알아내기 이 부분에서 절대경로말고 상대경로로 찾는법
+$root_path = $_SERVER["DOCUMENT_ROOT"];
+$folder = $root_path . "/board/upload/" . $filename;
 move_uploaded_file($tmpfile, $folder);
 
-if (move_uploaded_file($tmpfile, $folder) != (null or "")) {
 
+// echo strlen($userpw) . "<br>  ";
+// echo " insert into board(b_name,b_pw,b_title,b_content,b_date,b_hit,b_lock_post) 
+// values('" . $username . "','" . $userpw . "','" . $title . "','" . $content . "','" . $date . "','0','" . $lo_post . "')";
 
-    // echo strlen($userpw) . "<br>  ";
-    // $sql = mysqli_query($db, " insert into board(b_name,b_pw,b_title,b_content,b_date,b_hit,b_lock_post) 
-    // values('" . $username . "','" . $userpw . "','" . $title . "','" . $content . "','" . $date . "','0','" . $lo_post . "')");
+$mqq = mq("alter table board auto_increment =1"); //auto_increment 값 초기화
 
-    $sql = mq("insert into board(b_name,b_pw,b_title,b_content,b_date,b_lock_post,b_file)
+$sql = mq("insert into board(b_name,b_pw,b_title,b_content,b_date,b_lock_post,b_file)
     values('" . $_POST['b_name'] . "','" . $userpw . "','" . $_POST['b_title'] . "','" . $_POST['b_content'] . "','" . $date . "','" . $lo_post . "','" . $o_name . "')");
 
-    // echo " insert into board(b_name,b_pw,b_title,b_content,b_date,b_hit,b_lock_post) 
-    // values('" . $username . "','" . $userpw . "','" . $title . "','" . $content . "','" . $date . "','0','" . $lo_post . "')";
 
-    echo "<script>
+// echo $root_path . "<br>  ";
+// echo strlen($o_name) . "<br>  ";
+// echo "insert into board(b_name,b_pw,b_title,b_content,b_date,b_lock_post,b_file)
+//     values('" . $_POST['b_name'] . "','" . $userpw . "','" . $_POST['b_title'] . "','" . $_POST['b_content'] . "','" . $date . "','" . $lo_post . "','" . $o_name . "')";
+
+
+echo "<script>
     alert('글쓰기 완료되었습니다.');
     location.href='/board';</script>";
-} elseif (move_uploaded_file($tmpfile, $folder) == (null or "")) {
-
-    $sql = mq("insert into board(b_name,b_pw,b_title,b_content,b_date,b_lock_post,)
-    values('" . $_POST['b_name'] . "','" . $userpw . "','" . $_POST['b_title'] . "','" . $_POST['b_content'] . "','" . $date . "','" . $lo_post . "')");
-} else {
-
-    echo "<script>
-    alert('글쓰기에 실패했습니다.');
-    history.back();</script>";
-}

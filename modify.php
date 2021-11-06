@@ -22,24 +22,21 @@ $board = $sql->fetch_array();
         <div id="write_area">
             <form action="modify_ok.php?b_idx=<?php echo $bno; ?>" method="post">
                 <div id="in_title">
-                    <textarea name="b_title" id="utitle" rows="1" cols="55" placeholder="제목" maxlength="100"
-                        required><?php echo $board['b_title']; ?></textarea>
+                    <textarea name="b_title" id="utitle" rows="1" cols="55" placeholder="제목" maxlength="100" required><?php echo $board['b_title']; ?></textarea>
                 </div>
                 <div class="wi_line"></div>
                 <div id="in_name">
-                    <textarea name="b_name" id="uname" rows="1" cols="55" placeholder="글쓴이" maxlength="100"
-                        required><?php echo $board['b_name']; ?></textarea>
+                    <textarea name="b_name" id="uname" rows="1" cols="55" placeholder="글쓴이" maxlength="100" required><?php echo $board['b_name']; ?></textarea>
                 </div>
                 <div class="wi_line"></div>
                 <div id="in_content">
-                    <textarea name="b_content" id="ucontent" placeholder="내용"
-                        required><?php echo $board['b_content']; ?></textarea>
+                    <textarea name="b_content" id="ucontent" placeholder="내용" required><?php echo $board['b_content']; ?></textarea>
                 </div>
                 <div id="in_pw">
                     <input type="password" name="b_pw" id="upw" placeholder="비밀번호" required />
                 </div>
                 <div class="bt_se">
-                    <button type="submit">글 작성</button>
+                    <button type="submit">글 수정</button>
                 </div>
             </form>
         </div>
